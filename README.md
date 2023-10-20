@@ -1,3 +1,8 @@
+code copied and edited from https://github.com/Nyr/openvpn-install/tree/master
+
+
+
+
 **New: [wireguard-install](https://github.com/Nyr/wireguard-install) is also available.**
 
 ## openvpn-install
