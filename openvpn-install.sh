@@ -288,10 +288,10 @@ dh dh.pem
 auth SHA512
 tls-crypt tc.key
 topology subnet
-server 10.8.0.0 255.255.255.0" > /etc/openvpn/server/server.conf
+server 10.88.88.0 255.255.255.0" > /etc/openvpn/server/server.conf
 	# IPv6
 	if [[ -z "$ip6" ]]; then
-		echo 'push "redirect-gateway def1 bypass-dhcp"' >> /etc/openvpn/server/server.conf
+		echo '#push "redirect-gateway def1 bypass-dhcp"' >> /etc/openvpn/server/server.conf
 	else
 		echo 'server-ipv6 fddd:1194:1194:1194::/64' >> /etc/openvpn/server/server.conf
 		echo 'push "redirect-gateway def1 ipv6 bypass-dhcp"' >> /etc/openvpn/server/server.conf
@@ -313,8 +313,9 @@ server 10.8.0.0 255.255.255.0" > /etc/openvpn/server/server.conf
 			done
 		;;
 		2)
-			echo 'push "dhcp-option DNS 8.8.8.8"' >> /etc/openvpn/server/server.conf
-			echo 'push "dhcp-option DNS 8.8.4.4"' >> /etc/openvpn/server/server.conf
+			echo '#push "dhcp-option DNS 8.8.8.8"' >> /etc/openvpn/server/server.conf
+			echo '#push "dhcp-option DNS 8.8.4.4"' >> /etc/openvpn/server/server.conf
+			echo 'push "route 10.0.0.0 255.0.0.0"' >> /etc/openvpn/server/server.conf
 		;;
 		3)
 			echo 'push "dhcp-option DNS 1.1.1.1"' >> /etc/openvpn/server/server.conf
@@ -333,7 +334,7 @@ server 10.8.0.0 255.255.255.0" > /etc/openvpn/server/server.conf
 			echo 'push "dhcp-option DNS 94.140.15.15"' >> /etc/openvpn/server/server.conf
 		;;
 	esac
-	echo 'push "block-outside-dns"' >> /etc/openvpn/server/server.conf
+	echo '#push "block-outside-dns"' >> /etc/openvpn/server/server.conf
 	echo "keepalive 10 120
 cipher AES-256-CBC
 user nobody
