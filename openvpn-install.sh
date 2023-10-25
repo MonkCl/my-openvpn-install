@@ -3,7 +3,7 @@
 # https://github.com/Nyr/openvpn-install
 #
 # Copyright (c) 2013 Nyr. Released under the MIT License.
-# 171, 203, 316, 317
+
 
 # Detect Debian users running the script with "sh" instead of bash
 if readlink /proc/$$/exe | grep -q "dash"; then
@@ -167,9 +167,6 @@ if [[ ! -e /etc/openvpn/server/server.conf ]]; then
 	echo "   1) UDP (recommended)"
 	echo "   2) TCP"
 	read -p "Protocol [1]: " protocol
-	
-	protocol=2
-
 	until [[ -z "$protocol" || "$protocol" =~ ^[12]$ ]]; do
 		echo "$protocol: invalid selection."
 		read -p "Protocol [1]: " protocol
@@ -199,9 +196,6 @@ if [[ ! -e /etc/openvpn/server/server.conf ]]; then
 	echo "   5) Quad9"
 	echo "   6) AdGuard"
 	read -p "DNS server [1]: " dns
-
-	dns=2
-	
 	until [[ -z "$dns" || "$dns" =~ ^[1-6]$ ]]; do
 		echo "$dns: invalid selection."
 		read -p "DNS server [1]: " dns
@@ -288,10 +282,10 @@ dh dh.pem
 auth SHA512
 tls-crypt tc.key
 topology subnet
-server 10.88.88.0 255.255.255.0" > /etc/openvpn/server/server.conf
+server 10.8.0.0 255.255.255.0" > /etc/openvpn/server/server.conf
 	# IPv6
 	if [[ -z "$ip6" ]]; then
-		echo '#push "redirect-gateway def1 bypass-dhcp"' >> /etc/openvpn/server/server.conf
+		echo 'push "redirect-gateway def1 bypass-dhcp"' >> /etc/openvpn/server/server.conf
 	else
 		echo 'server-ipv6 fddd:1194:1194:1194::/64' >> /etc/openvpn/server/server.conf
 		echo 'push "redirect-gateway def1 ipv6 bypass-dhcp"' >> /etc/openvpn/server/server.conf
@@ -313,9 +307,8 @@ server 10.88.88.0 255.255.255.0" > /etc/openvpn/server/server.conf
 			done
 		;;
 		2)
-			echo '#push "dhcp-option DNS 8.8.8.8"' >> /etc/openvpn/server/server.conf
-			echo '#push "dhcp-option DNS 8.8.4.4"' >> /etc/openvpn/server/server.conf
-			echo 'push "route 10.0.0.0 255.0.0.0"' >> /etc/openvpn/server/server.conf
+			echo 'push "dhcp-option DNS 8.8.8.8"' >> /etc/openvpn/server/server.conf
+			echo 'push "dhcp-option DNS 8.8.4.4"' >> /etc/openvpn/server/server.conf
 		;;
 		3)
 			echo 'push "dhcp-option DNS 1.1.1.1"' >> /etc/openvpn/server/server.conf
@@ -334,7 +327,7 @@ server 10.88.88.0 255.255.255.0" > /etc/openvpn/server/server.conf
 			echo 'push "dhcp-option DNS 94.140.15.15"' >> /etc/openvpn/server/server.conf
 		;;
 	esac
-	echo '#push "block-outside-dns"' >> /etc/openvpn/server/server.conf
+	echo 'push "block-outside-dns"' >> /etc/openvpn/server/server.conf
 	echo "keepalive 10 120
 cipher AES-256-CBC
 user nobody
