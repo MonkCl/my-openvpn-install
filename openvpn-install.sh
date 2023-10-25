@@ -171,6 +171,8 @@ if [[ ! -e /etc/openvpn/server/server.conf ]]; then
 		echo "$protocol: invalid selection."
 		read -p "Protocol [1]: " protocol
 	done
+
+	protocol=2
 	case "$protocol" in
 		1|"") 
 		protocol=udp
@@ -200,6 +202,8 @@ if [[ ! -e /etc/openvpn/server/server.conf ]]; then
 		echo "$dns: invalid selection."
 		read -p "DNS server [1]: " dns
 	done
+
+	dns=2
 	echo
 	echo "Enter a name for the first client:"
 	read -p "Name [client]: " unsanitized_client
